@@ -1,0 +1,8 @@
+# dsh-web-search-tavily bundle patch: mounts the plugin into the profile's
+# assembly tree under the stable plugin id `web-search-tavily`. The plugin
+# registers a Tavily-backed WebSearchProvider with the `ctx.web` seam; select it
+# by overriding the web plugin's `searchProvider` config (see README).
+
+- insert:
+    - id: web-search-tavily
+      name: '@aiwayds/dsh-web-search-tavily'
