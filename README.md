@@ -20,25 +20,22 @@ timeout budget. A provider swap changes how the harness reaches the web, nothing
 
 ## Install
 
-Add the package to a dsh profile — `~/.dsh/profiles/<name>/package.json`:
+One command:
 
-```json
-{
-  "dependencies": {
-    "@aiwayds/dsh-web-search-tavily": "^0.1.0"
-  },
-  "dsh": {
-    "profile": {
-      "bundles": ["@deepseek-ai/dsh-base", "@aiwayds/dsh-web-search-tavily"]
-    }
-  }
-}
+```sh
+dsh plugin --profile <name> add @aiwayds/dsh-web-search-tavily
 ```
 
-then `pnpm install` in the profile directory and restart dsh.
+`dsh plugin` installs the package into the profile (via pnpm) and registers it in
+`dsh.profile.bundles` automatically. Restart dsh — the provider is registered and ready.
+Local development: `dsh plugin --profile <name> add link:/path/to/dsh-web-search-tavily`
+(relative path specs anchor to your invoking directory). The manual route — adding the
+dependency and the bundle entry to `~/.dsh/profiles/<name>/package.json` yourself and
+running `pnpm install` there — works identically.
 
-Also installable as `"github:fan56/dsh-web-search-tavily"` or, for local development,
-`"link:/path/to/dsh-web-search-tavily"`.
+Unlike the anysearch sibling plugin, this one does **not** claim the `web_search`
+default on install — Tavily needs an API key, and a selected-but-unconfigured provider
+would fail every search. After storing the key, select it with one patch entry (below).
 
 > `@deepseek-ai/*` packages are **peer dependencies by design**: they must resolve to
 > the profile's single shared dsh closure (`link-dsh-closure`). Putting them in
