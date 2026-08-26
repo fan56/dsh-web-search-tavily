@@ -1,6 +1,6 @@
 {
   "name": "@aiwayds/dsh-web-search-tavily",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tavily-backed web search provider for DeepSeek Harness (dsh)",
   "license": "MIT",
   "type": "module",
