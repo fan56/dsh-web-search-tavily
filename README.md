@@ -25,7 +25,7 @@ Add the package to a dsh profile — `~/.dsh/profiles/<name>/package.json`:
 ```json
 {
   "dependencies": {
-    "@aiwayds/dsh-web-search-tavily": "github:fan56/dsh-web-search-tavily"
+    "@aiwayds/dsh-web-search-tavily": "^0.1.0"
   },
   "dsh": {
     "profile": {
@@ -37,11 +37,8 @@ Add the package to a dsh profile — `~/.dsh/profiles/<name>/package.json`:
 
 then `pnpm install` in the profile directory and restart dsh.
 
-For local development use a filesystem link instead:
-
-```json
-"@aiwayds/dsh-web-search-tavily": "link:/path/to/dsh-web-search-tavily"
-```
+Also installable as `"github:fan56/dsh-web-search-tavily"` or, for local development,
+`"link:/path/to/dsh-web-search-tavily"`.
 
 > `@deepseek-ai/*` packages are **peer dependencies by design**: they must resolve to
 > the profile's single shared dsh closure (`link-dsh-closure`). Putting them in

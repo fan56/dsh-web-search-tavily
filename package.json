@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Tavily-backed web search provider for DeepSeek Harness (dsh)",
   "license": "MIT",
-  "private": true,
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
