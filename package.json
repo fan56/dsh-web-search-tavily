@@ -3,6 +3,10 @@
   "version": "0.1.1",
   "description": "Tavily-backed web search provider for DeepSeek Harness (dsh)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fan56/dsh-web-search-tavily.git"
+  },
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
