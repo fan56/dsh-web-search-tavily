@@ -1,6 +1,6 @@
 {
   "name": "@aiwayds/dsh-web-search-tavily",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Tavily-backed web search provider for DeepSeek Harness (dsh)",
   "keywords": [
     "dsh",
