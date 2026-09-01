@@ -1,10 +1,24 @@
-# CI: typecheck + tests on every push to main and every pull request.
+# CI: typecheck + tests + a real-host boot smoke on every push to main, every
+# pull request, and a daily schedule.
+#
+# The dsh CLI version is resolved at runtime from the npm registry's rolling
+# `alpha` dist-tag — never hand-pinned (the rc.8 lesson: a hand-pinned rc
+# went stale and rotted the gate). The plugin targets the 0.1.2-alpha line;
+# `latest` still points at the rc line it dropped. scripts/link-dsh-closure.mjs
+# re-points node_modules/@deepseek-ai/* at that install's closure, so
+# typecheck runs against exactly the code the host ships (one
+# @deepseek-ai/cordis in the type graph). The smoke boots a scratch profile
+# with the plugin mounted via the real dsh CLI (scripts/smoke-boot.mjs) so
+# "loads under real cordis" is a gate, not a hope.
 name: CI
 
 on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    # Daily 03:51 UTC — catches upstream dsh alpha drift without hand-pinning.
+    - cron: '51 3 * * *'
 
 permissions:
   contents: read
@@ -32,8 +46,22 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Install global dsh (rolling @alpha dist-tag, never hand-pinned)
+        run: |
+          DSH_VERSION="$(npm view @deepseek-ai/dsh@alpha version)"
+          echo "dsh closure: ${DSH_VERSION}"
+          npm install -g "@deepseek-ai/dsh@${DSH_VERSION}" --no-audit --no-fund
+
+      # Point node_modules/@deepseek-ai/* at the installed CLI's closure so
+      # tsc sees exactly the type graph the host runs (one cordis instance).
+      - name: Link dsh closure types
+        run: node scripts/link-dsh-closure.mjs
+
       - name: Check
         run: npm run check --if-present
 
       - name: Test
         run: npm test
+
+      - name: Boot smoke (real dsh host, scratch profile)
+        run: npm run smoke

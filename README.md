@@ -3,6 +3,8 @@
 A [DeepSeek Harness (dsh)](https://github.com/deepseek-ai/deepseek-harness) plugin that
 provides web search through the [Tavily Search API](https://docs.tavily.com/).
 
+**Requires dsh >= 0.1.2-alpha.3** — the plugin targets the 0.1.2-alpha host line only; the rc line is no longer supported.
+
 It replaces the default DeepSeek web search — which spends a **full auxiliary model call
 per search** (Anthropic-compatible Messages API + `web_search_20250305` server tool) —
 with a plain Tavily REST call: ~1s, 1 credit at `basic` depth, no model tokens.

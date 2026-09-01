@@ -25,22 +25,23 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc --noEmit -p tsconfig.json",
-    "test": "npm run build && node --test test/provider.test.mjs test/apply.test.mjs"
+    "test": "npm run build && node --test test/provider.test.mjs test/apply.test.mjs",
+    "smoke": "node scripts/smoke-boot.mjs"
   },
   "peerDependencies": {
-    "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/schemastery": "3.18.1",
-    "@deepseek-ai/dsh-web": "0.1.1-rc.2",
-    "@deepseek-ai/dsh-credentials": "0.1.1-rc.2",
-    "@deepseek-ai/dsh-launch-environment": "0.1.1-rc.2"
+    "@deepseek-ai/cordis": "^4.0.2",
+    "@deepseek-ai/schemastery": "^3.18.2",
+    "@deepseek-ai/dsh-web": ">=0.1.2-alpha.3",
+    "@deepseek-ai/dsh-credentials": ">=0.1.2-alpha.3",
+    "@deepseek-ai/dsh-launch-environment": ">=0.1.2-alpha.3"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
-    "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/schemastery": "3.18.1",
-    "@deepseek-ai/dsh-web": "0.1.1-rc.2",
-    "@deepseek-ai/dsh-credentials": "0.1.1-rc.2",
-    "@deepseek-ai/dsh-launch-environment": "0.1.1-rc.2",
+    "@deepseek-ai/cordis": "4.0.2",
+    "@deepseek-ai/schemastery": "3.18.2",
+    "@deepseek-ai/dsh-web": "0.1.2-alpha.3",
+    "@deepseek-ai/dsh-credentials": "0.1.2-alpha.3",
+    "@deepseek-ai/dsh-launch-environment": "0.1.2-alpha.3",
     "typescript": "^5.9.0"
   },
   "dsh": {
