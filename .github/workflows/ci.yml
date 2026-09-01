@@ -63,5 +63,11 @@ jobs:
       - name: Test
         run: npm test
 
+      # dsh 的 profile/bundle 机器会转壳调用 pnpm 来初始化 scratch profile。
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
       - name: Boot smoke (real dsh host, scratch profile)
         run: npm run smoke
