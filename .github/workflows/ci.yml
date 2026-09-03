@@ -2,10 +2,11 @@
 # pull request, and a daily schedule.
 #
 # The dsh CLI version is resolved at runtime from the npm registry's rolling
-# `alpha` dist-tag — never hand-pinned (the rc.8 lesson: a hand-pinned rc
-# went stale and rotted the gate). The plugin targets the 0.1.2-alpha line;
-# `latest` still points at the rc line it dropped. scripts/link-dsh-closure.mjs
-# re-points node_modules/@deepseek-ai/* at that install's closure, so
+# rc/stable line — the newest of the `latest` (stable) and `next` (rc)
+# dist-tags, never hand-pinned (the rc.8 lesson: a hand-pinned version went
+# stale and rotted the gate) and never alpha (the alpha line is retired per
+# the 2026-09-03 policy). scripts/link-dsh-closure.mjs re-points
+# node_modules/@deepseek-ai/* at that install's closure, so
 # typecheck runs against exactly the code the host ships (one
 # @deepseek-ai/cordis in the type graph). The smoke boots a scratch profile
 # with the plugin mounted via the real dsh CLI (scripts/smoke-boot.mjs) so
@@ -17,7 +18,7 @@ on:
     branches: [main]
   pull_request:
   schedule:
-    # Daily 03:51 UTC — catches upstream dsh alpha drift without hand-pinning.
+    # Daily 03:51 UTC — catches upstream dsh rc/stable drift without hand-pinning.
     - cron: '51 3 * * *'
 
 permissions:
@@ -46,9 +47,18 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Install global dsh (rolling @alpha dist-tag, never hand-pinned)
+      - name: Install dsh CLI (rolling rc/stable line — newest of latest/next, never alpha)
         run: |
-          DSH_VERSION="$(npm view @deepseek-ai/dsh@alpha version)"
+          # Policy (2026-09-03): the alpha line is retired for CI. Resolve the
+          # newest of the `latest` (stable) and `next` (rc) dist-tags at
+          # runtime, never hand-pinned — when a stable 0.1.2+ lands on
+          # `latest` it wins over the rc by plain semver compare.
+          STABLE="$(npm view @deepseek-ai/dsh@latest version)"
+          RC="$(npm view @deepseek-ai/dsh@next version 2>/dev/null || true)"
+          DSH_VERSION="$STABLE"
+          if [ -n "$RC" ] && [ "$(printf '%s\n' "$STABLE" "$RC" | sort -V | tail -1)" = "$RC" ]; then
+            DSH_VERSION="$RC"
+          fi
           echo "dsh closure: ${DSH_VERSION}"
           npm install -g "@deepseek-ai/dsh@${DSH_VERSION}" --no-audit --no-fund
 
