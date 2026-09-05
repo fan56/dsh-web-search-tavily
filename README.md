@@ -43,6 +43,24 @@ would fail every search. After storing the key, select it with one patch entry (
 > the profile's single shared dsh closure (`link-dsh-closure`). Putting them in
 > `dependencies` installs a second cordis instance and crashes the loader.
 
+## Uninstall
+
+```sh
+dsh plugin --profile <name> remove @aiwayds/dsh-web-search-tavily
+```
+
+The host auto-cleans the whole install: the bundles entry is spliced out of the
+profile's `package.json`, the dependency is removed, and the plugin's patch
+layer drops with the package. Restart dsh and the `tavily` provider is gone —
+`web_search` falls back to whichever provider your patch layers still select
+(the shipped `deepseek-official` by default).
+
+The plugin keeps no on-disk state. Your Tavily API key lives in host-owned
+storage — the `TAVILY_API_KEY` ref in `~/.dsh/.credentials.yaml` or the
+launching environment — and uninstall never touches it. If you no longer want
+the key (or the `searchProvider: tavily` patch entry selecting the provider),
+remove those by hand.
+
 ## Configure
 
 **1. API key.** Store the key in dsh's managed credentials document
