@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-09-11
+
+### Changed
+- **dsh support floor raised to `>= 0.1.5-rc.2`** (peer floors on `dsh-web` / `dsh-credentials` / `dsh-launch-environment`; READMEs updated). The dev closure rides the 0.1.5-rc.2 line.
+- Release: the publish-verify loop polls `npm view` for ~2 min instead of 30s — packument propagation measured ~50s on dsh-dcp v0.11.0 outran the old window and falsely failed a landed publish.
+
 ## [0.3.1] - 2026-09-05
 
 ### Changed
