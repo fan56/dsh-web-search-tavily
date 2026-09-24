@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+- **dsh support floor raised to `>= 0.1.7-rc.1`** (peer floors on `dsh-web` / `dsh-credentials` / `dsh-launch-environment`; devDependencies pinned to `0.1.7-rc.1` exactly; README updated). The dev closure rides the 0.1.7-rc.1 line, whose peers force cordis 4.0.4 / schemastery 3.18.4 in devDependencies (peer ranges unchanged). No source changes were needed — typecheck and the full test suite pass against the new closure.
+- **Plugin Manager metadata.** Added `icon.svg` and `locale/{en,zh}.json` (`meta.title`/`meta.description` per the official `readPluginMeta` contract); `package.json` now declares the `icon` and ships both in the tarball.
+
 ## [0.4.0] - 2026-09-11
 
 ### Changed

@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "dsh-web-search-tavily",
+    "description": "基于 Tavily 的网页搜索 provider，通过 Tavily 搜索 API 驱动 /web 工具。"
+  }
+}

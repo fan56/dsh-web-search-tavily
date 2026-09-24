@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "dsh-web-search-tavily",
+    "description": "Tavily web search provider: serves the harness /web tool through the Tavily search API."
+  }
+}
