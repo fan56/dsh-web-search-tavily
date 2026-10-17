@@ -55,11 +55,22 @@ jobs:
           # `latest` it wins over the rc by plain semver compare.
           STABLE="$(npm view @deepseek-ai/dsh@latest version)"
           RC="$(npm view @deepseek-ai/dsh@next version 2>/dev/null || true)"
-          # 2026-10-17 (0.2.1-rc.1 wave): pinned to `latest` until the 0.2.1
-          # migration lands — next=0.2.1-rc.1 changed the host type surface,
-          # and the plugin is still on the 0.2.0-rc.2 support line. Restore
-          # the newest-of-latest/next selection as part of that migration.
+          # Newest-of(latest,next), restored for the 0.2.1 migration —
+          # prerelease-aware node compare, NOT sort -V (trap on record:
+          # sort -V ranks 0.2.1-rc.2 ABOVE 0.2.1 and would pick the older
+          # rc once a stable lands on `latest`).
           DSH_VERSION="$STABLE"
+          if [ -n "$RC" ] && node -e '
+            const parse = (v) => { const [core, pre] = v.split("-"); return { c: core.split(".").map(Number), pre } }
+            const A = parse(process.argv[1]), B = parse(process.argv[2])
+            for (let i = 0; i < 3; i++) {
+              if (A.c[i] !== B.c[i]) process.exit(A.c[i] > B.c[i] ? 0 : 1)
+            }
+            if ((A.pre === undefined) !== (B.pre === undefined)) process.exit(A.pre === undefined ? 0 : 1)
+            process.exit(String(A.pre ?? "") >= String(B.pre ?? "") ? 0 : 1)
+          ' "$RC" "$STABLE"; then
+            DSH_VERSION="$RC"
+          fi
           # The install goes into a scratch prefix as the publish wave's OWN
           # closure: every @deepseek-ai/* range the resolved version declares
           # is pinned to its base version via npm overrides. A plain
