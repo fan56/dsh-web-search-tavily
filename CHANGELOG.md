@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.6.1 (2026-10-26)
+
+### Fixed
+- Every `@deepseek-ai` peer is now optional (`peerDependenciesMeta.optional: true`) — npm-class profile installs auto-resolve hard peers from the stable tower, and those exact-pinned copies shadow the host closure so the host pre-flight gate disables the plugin rows (the 10-26 cron 0.6.0 failure class, first seen 10-19). Surfaced by the new peer-meta audit in fan56/dsh-subagent-registry's weekly `e2e install`. No code change.
+
 ## [Unreleased]
 
 ### Changed
