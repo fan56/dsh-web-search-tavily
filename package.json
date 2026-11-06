@@ -1,6 +1,6 @@
 {
   "name": "@aiwayds/dsh-web-search-tavily",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Tavily-backed web search provider for DeepSeek Harness (dsh)",
   "keywords": [
     "dsh",
@@ -39,12 +39,13 @@
     "@deepseek-ai/dsh-launch-environment": ">=0.2.0-rc.2"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
     "@deepseek-ai/cordis": "4.1.0",
-    "@deepseek-ai/schemastery": "3.19.0",
-    "@deepseek-ai/dsh-web": "0.2.2-rc.1",
     "@deepseek-ai/dsh-credentials": "0.2.2-rc.1",
     "@deepseek-ai/dsh-launch-environment": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-web": "0.2.2-rc.1",
+    "@deepseek-ai/schemastery": "3.19.0",
+    "@types/node": "^24.0.0",
     "typescript": "^5.9.0"
   },
   "dsh": {

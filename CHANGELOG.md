@@ -2,12 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## 0.6.1 (2026-10-26)
-
-### Fixed
-- Every `@deepseek-ai` peer is now optional (`peerDependenciesMeta.optional: true`) — npm-class profile installs auto-resolve hard peers from the stable tower, and those exact-pinned copies shadow the host closure so the host pre-flight gate disables the plugin rows (the 10-26 cron 0.6.0 failure class, first seen 10-19). Surfaced by the new peer-meta audit in fan56/dsh-subagent-registry's weekly `e2e install`. No code change.
-
-## [Unreleased]
+## 0.7.0 (2026-11-06)
 
 ### Changed
 - **0.2.2-rc.1 wave**: devDeps `@deepseek-ai/*` pins `0.2.1-rc.5` → `0.2.2-rc.1` (`dsh-web` / `dsh-credentials` / `dsh-launch-environment`), `@deepseek-ai/cordis` `4.0.5` → `4.1.0` (the 0.2.2-rc.1 packages peer-require `cordis ~4.1.0` — the old pin made `npm` resolution fail ERESOLVE; resolved by the "dev pin follows the host closure" precedent), package-lock.json advanced against registry.npmjs.org. A repo `.npmrc` with `legacy-peer-deps=true` joins per the same precedent, so plain `npm install` no longer auto-installs the closure peers (e.g. `dsh-web`'s `dsh-llm` peer) from the stable tower over the linked closure. the exact-pinned schemastery devDep follows `3.18.5` → `3.19.0` (the rc.1 closure members already nest schemastery 3.19.0 — `dsh-web`'s own dependency — so the family exact pins unify on 3.19.0 and npm dedupes the nested copy out of the tree; the rc.1 peers of these three packages name no schemastery range). Peer floors unchanged (pre-flight `includePrerelease` already matches 0.2.2-rc.1); CI host resolution is already newest-of(latest,next) with the prerelease-aware compare (release.yml has no host step); verified against a scratch 0.2.2-rc.1 closure (the CI install shape): typecheck clean, 14 pass / 0 fail, boot smoke pass.
@@ -15,6 +10,11 @@ All notable changes to this project will be documented in this file.
 - **Raise dsh host floor to 0.2.0-rc.2** (peer floors on `dsh-web` / `dsh-credentials` / `dsh-launch-environment`; devDependencies pinned to `0.2.0-rc.2` exactly; lockfile regenerated against registry.npmjs.org; README updated). cordis 4.0.4 / schemastery 3.18.4 pins unchanged. Zero source changes — 0.2.0 is a digestion wave (tests 14 pass / 0 fail).
 - **dsh support floor raised to `>= 0.1.7-rc.1`** (peer floors on `dsh-web` / `dsh-credentials` / `dsh-launch-environment`; devDependencies pinned to `0.1.7-rc.1` exactly; README updated). The dev closure rides the 0.1.7-rc.1 line, whose peers force cordis 4.0.4 / schemastery 3.18.4 in devDependencies (peer ranges unchanged). No source changes were needed — typecheck and the full test suite pass against the new closure.
 - **Plugin Manager metadata.** Added `icon.svg` and `locale/{en,zh}.json` (`meta.title`/`meta.description` per the official `readPluginMeta` contract); `package.json` now declares the `icon` and ships both in the tarball.
+
+## 0.6.1 (2026-10-26)
+
+### Fixed
+- Every `@deepseek-ai` peer is now optional (`peerDependenciesMeta.optional: true`) — npm-class profile installs auto-resolve hard peers from the stable tower, and those exact-pinned copies shadow the host closure so the host pre-flight gate disables the plugin rows (the 10-26 cron 0.6.0 failure class, first seen 10-19). Surfaced by the new peer-meta audit in fan56/dsh-subagent-registry's weekly `e2e install`. No code change.
 
 ## [0.4.0] - 2026-09-11
 
