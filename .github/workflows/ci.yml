@@ -1,5 +1,5 @@
-# CI: typecheck + tests + a real-host boot smoke on every push to main, every
-# pull request, and a daily schedule.
+# CI: typecheck + tests + a real-host boot smoke on every push to main and
+# every pull request.
 #
 # The dsh CLI version is resolved at runtime from the npm registry's rolling
 # rc/stable line — the newest of the `latest` (stable) and `next` (rc)
@@ -17,9 +17,6 @@ on:
   push:
     branches: [main]
   pull_request:
-  schedule:
-    # Daily 03:51 UTC — catches upstream dsh rc/stable drift without hand-pinning.
-    - cron: '51 3 * * *'
 
 permissions:
   contents: read
