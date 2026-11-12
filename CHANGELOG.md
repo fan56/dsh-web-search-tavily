@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+- **0.2.2-rc.2 wave**: devDeps `@deepseek-ai/*` pins `0.2.2-rc.1` → `0.2.2-rc.2` (`dsh-web` / `dsh-credentials` / `dsh-launch-environment` / `dsh-llm`), package-lock.json re-resolved on registry.npmjs.org. Peer floors unchanged (pre-flight `includePrerelease` already matches 0.2.2-rc.2); CI host resolution is already newest-of(latest,next) with the prerelease-aware compare (release.yml has no host step).
+- **New devDep `@deepseek-ai/dsh-error` `0.2.2-rc.2`** — the rc.2 closure's first release of this package; `dsh-web@0.2.2-rc.2`'s `WebError` extends `HarnessError`, which now lives there (re-exported through `dsh-llm`). With the package absent from the dev tree, TS could not resolve the base class signature and every `new WebError(message, code, …)` call site failed `tsc` with TS2554 "Expected 0 arguments". Dev-only, pinned to the closure version per the dev-pin-rides-the-closure precedent. No source change. Verified against the rc.2 dev tree: build/typecheck clean, 14 pass / 0 fail, boot smoke PASS under dsh `0.2.2-rc.2`.
+
 ## 0.7.0 (2026-11-06)
 
 ### Changed
