@@ -28,7 +28,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "check": "tsc --noEmit -p tsconfig.json",
-    "test": "npm run build && node --test test/provider.test.mjs test/apply.test.mjs",
+    "test": "npm run build && node --test test/provider.test.mjs test/apply.test.mjs && node test/packaged-upgrade.test.mjs",
     "smoke": "node scripts/smoke-boot.mjs"
   },
   "peerDependencies": {
